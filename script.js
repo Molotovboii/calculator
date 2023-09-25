@@ -11,7 +11,7 @@ clear(){
 }
 
 delete() {
-
+    this.currentOperand = this.currentOperand.toString().slice(0, -1)
 }
 
 appendNumber(number) {
@@ -43,7 +43,7 @@ compute() {
         case '-':
             computation = prev - current
             break
-        case '*':
+        case '×':
             computation = prev * current
             break
         case '÷':
@@ -58,9 +58,18 @@ compute() {
     this.previousOperand = ''
 }
 
+getDisplayNumber(number){
+    return number
+}
+
 updateDisplay() {
     this.currentOperandTextElement.innerText = this.currentOperand;
     this.previousOperandTextElement.innerText = this.previousOperand;
+    if (this.operation != null){
+        this.previousOperandTextElement.innerText =
+         `${this.previousOperand} ${this.operation}`
+    }
+
 }
 
 }
@@ -99,6 +108,13 @@ equalsButton.addEventListener('click', button => {
 
 allClearButton.addEventListener('click', button => {
     calculator.clear()
+    calculator.updateDisplay()
+}
+
+)
+
+deleteButton.addEventListener('click', button => {
+    calculator.delete()
     calculator.updateDisplay()
 }
 
